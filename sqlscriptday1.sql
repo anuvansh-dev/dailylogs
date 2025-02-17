@@ -1,0 +1,95 @@
+CREATE DATABASE test;
+
+USE test;
+
+CREATE TABLE student (
+ID INT PRIMARY KEY, 
+Name VARCHAR(100), 
+Age int
+);
+
+INSERT INTO student 
+VALUES (1, 'Anuvansh', 21), 
+(2, 'Tushar', 22), 
+(3, 'Shyam', '22');
+
+SELECT * FROM student;
+
+CREATE DATABASE test1;
+
+DROP DATABASE IF EXISTS test1;
+
+CREATE DATABASE org;
+USE org;
+
+CREATE TABLE Worker (
+	WORKER_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+    FIRST_NAME VARCHAR (30),
+    LAST_NAME VARCHAR (30),
+    SALARY INT(15), 
+    JOINING_DATE DATETIME, 
+    DEPARTMENT VARCHAR(25)
+);
+
+INSERT INTO Worker (FIRST_NAME, LAST_NAME, SALARY, JOINING_DATE, DEPARTMENT) VALUES
+				   ('Anuvansh', 'Kumar', 20000, '03-02-25 09.00.00', 'AI/ML'),
+                   ('Tushar', 'Sharma', 15000, '10-01-23 09.00.00', 'HR'),
+                   ('Monika', 'Gupta', 40000, '25-03-23 09.00.00', 'AI/ML'),
+                   ('Ankush', 'Kumar', 18500, '03-03-23 09.00.00', 'AI/ML'),
+                   ('Arijit', 'Singh', 45000, '21-01-22 09.00.00', 'Accounts'),
+                   ('Vikas', 'Mishra', 25000, '18-03-21 09.00.00', 'HR');
+
+SELECT * FROM Worker;
+
+CREATE TABLE BONUS ( 
+	WORKER_REF_ID INT, 
+    BONUS_AMOUNT INT(10), 
+    BONUS_DATE DATETIME, 
+    FOREIGN KEY (WORKER_REF_ID)
+		REFERENCES Worker(WORKER_ID)
+        ON DELETE CASCADE
+);
+
+INSERT INTO BONUS (WORKER_REF_ID, BONUS_AMOUNT, BONUS_DATE) VALUES
+				 (1, 4000, '2025-02-16 00:00:00'),
+                 (5, 10000, '2018-01-18 00:00:00'),
+                 (3, 15000, '2020-09-20 00:00:00'),
+                 (5, 12000, '2025-01-06 00:00:00'),
+				 (3, 20000, '2025-01-05 00:00:00');
+                  
+SELECT * FROM BONUS;
+                  
+CREATE TABLE TITLE (
+	WORKER_REF_ID INT,
+    WORKER_TITLE VARCHAR(25),
+    AFFECTED_FROM DATETIME,
+    FOREIGN KEY (WORKER_REF_ID)
+		REFERENCES Worker(WORKER_ID)
+        ON DELETE CASCADE
+);                  
+
+INSERT INTO TITLE (WORKER_REF_ID, WORKER_TITLE,  AFFECTED_FROM) VALUES
+				  (1, 'SDE', '03-02-25 00.00.00'),
+                  (2, 'EXECUTIVE', '03-02-25 00.00.00'),
+                  (3, 'SR. SDE', '25-03-25 00.00.00'),
+                  (4, 'SDE', '05-02-25 00.00.00'),
+                  (5, 'ACCOUNTANT', '21-01-22 00.00.00'),
+                  (6, 'SR. EXECUTIVE', '18-03-21 00.00.00');
+                  
+SELECT * FROM TITLE;
+
+SELECT FIRST_NAME FROM Worker WHERE FIRST_NAME LIKE '%an%';
+
+SELECT * FROM Worker WHERE DEPARTMENT = 'AI/ML' ORDER BY SALARY DESC;
+
+SELECT DISTINCT DEPARTMENT FROM Worker;
+
+SELECT DEPARTMENT, COUNT(DEPARTMENT) FROM Worker GROUP BY DEPARTMENT;
+
+SELECT DEPARTMENT, AVG(SALARY) FROM Worker GROUP BY DEPARTMENT;
+
+SELECT DEPARTMENT, MIN(SALARY) FROM Worker GROUP BY DEPARTMENT;
+
+#We use Having keyword for filtering in group by
+SELECT DEPARTMENT, COUNT(WORKER_ID) FROM Worker 
+GROUP BY DEPARTMENT HAVING COUNT(WORKER_ID) > 2;
