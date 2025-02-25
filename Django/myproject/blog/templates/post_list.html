@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog</title>
+</head>
+<body>
+    <h1>Blog Posts</h1>
+    <ul>
+        {% for post in posts %}
+        <li><strong>{{ post.title }}</strong><br>{{ post.content }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'create_blog' %}">Create a new blog post</a>
+</body>
+</html>
