@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Register</h2>
+  <form method="POST">
+    {% csrf_token %}
+    
+    <!-- Display form fields with errors -->
+    <div>
+      <label for="{{ form.username.id_for_label }}">Username</label>
+      {{ form.username }}
+      {% if form.username.errors %}
+        <div class="error-message">
+          {% for error in form.username.errors %}
+            <p class="error">{{ error }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    
+    <div>
+      <label for="{{ form.password1.id_for_label }}">Password</label>
+      {{ form.password1 }}
+      {% if form.password1.errors %}
+        <div class="error-message">
+          {% for error in form.password1.errors %}
+            <p class="error">{{ error }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+      <ul class="password-rules">
+        <li>Password must be at least 8 characters long.</li>
+        <li>Password must contain at least one uppercase letter (A-Z).</li>
+        <li>Password must contain at least one special character (e.g., @, #, $, !).</li>
+      </ul>
+    </div>
+
+    <div>
+      <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+      {{ form.password2 }}
+      {% if form.password2.errors %}
+        <div class="error-message">
+          {% for error in form.password2.errors %}
+            <p class="error">{{ error }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    
+    <button type="submit">Register</button>
+  </form>
+{% endblock %}
