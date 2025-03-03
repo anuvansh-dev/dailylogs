@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Task{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Edit Task</h1>
+    <form method="post" class="bg-light p-4 rounded shadow">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-warning">Save Changes</button>
+    </form>
+
+    <a href="{% url 'task_list' %}" class="btn btn-secondary mt-3">Back to Task List</a>
+</div>
+{% endblock content %}

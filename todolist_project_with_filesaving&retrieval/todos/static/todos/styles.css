@@ -1,0 +1,63 @@
+/* Making completed tasks' rows green and pending tasks as red for better readability */
+.completed-task {
+    background-color: lightgreen;
+    color: black;
+}
+
+.pending-task{
+    background-color: lightcoral;
+    color: black;
+}
+
+/* Adds a hover effect */
+tr:hover{
+    opacity: 0.8;
+}
+
+/* Background image */ 
+body{
+    background-image: url('/static/todos/images/default_bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;  /* Ensures it takes the full viewport height */
+    font-family: Arial, sans-serif; /* Optional: Makes text look better */
+}
+
+table {
+    background-color: rgba(255, 255, 255, 0.8); /* White with 80% opacity */
+    border-radius: 10px;
+    padding: 15px;
+    backdrop-filter: blur(5px); /* Adds a slight blur effect */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    width: 80%; /* Adjust width to fit better */
+    margin: auto; /* Center the table */
+}
+
+th, td {
+    border: 1px solid rgba(0, 0, 0, 0.2); /* Light gray border */
+    padding: 12px; /* Adds space inside cells */
+    text-align: left;
+}
+
+
+/* Apply rounded corners only to the first and last row */
+table tr:first-child th:first-child {
+    border-top-left-radius: 10px;
+}
+
+table tr:first-child th:last-child {
+    border-top-right-radius: 10px;
+}
+
+table tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+

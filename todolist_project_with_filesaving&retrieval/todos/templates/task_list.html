@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Task List{% endblock %}
+
+{% block content %}
+<h2 class="mb-4", style='text-align: center;'>Tasks</h2>
+
+<table class="table table-striped"> 
+    <thead>
+        <tr>
+            <th scope="col">Task</th>
+            <th scope="col">Description</th>
+            <th scope="col">Created On</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in tasks %}
+        <tr class="{% if task.is_completed %}completed-task{% else %}pending-task{% endif %}">
+            <td><a href="{% url 'task_detail' task.id %}" class="h5">{{ task.title }}</a></td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.created_at|date:"Y-m-d H:i:s" }}</td>
+            <td>
+                <!-- Toggle completion status -->
+                <form method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" name="toggle_completed" class="btn btn-sm {% if task.is_completed %}btn-success{% else %}btn-warning{% endif %}">
+                        {% if task.is_completed %}
+                            ✅ Completed
+                        {% else %}
+                            ❌ Pending
+                        {% endif %}
+                    </button>
+                    <input type="hidden" name="task_id" value="{{ task.id }}">
+                </form>
+            </td>
+            <td>
+                <!-- Edit and Delete options -->
+                <a href="{% url 'task_edit' task.id %}" class="btn btn-sm btn-warning">Edit</a>
+                <a href="{% url 'task_delete' task.id %}" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
